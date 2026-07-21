@@ -40,6 +40,10 @@ RUN --mount=type=cache,id=s/1f7082b3-71c8-46d4-b4d7-cbec9e62fe86-pnpm-store,targ
 
 FROM node:${NODE_VERSION}-slim AS runtime
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends gosu \
+    && rm -rf /var/lib/apt/lists/*
+
 LABEL maintainer="Resuma"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.title="Resuma"
@@ -61,13 +65,17 @@ COPY --from=runtime-deps --chown=node:node /app/apps/server/node_modules ./apps/
 COPY --from=builder --chown=node:node /app/apps/web/dist ./apps/web/dist
 COPY --from=builder --chown=node:node /app/apps/server/dist ./apps/server/dist
 COPY --from=pruner --chown=node:node /app/migrations ./migrations
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 WORKDIR /app
 
-USER node
+# No USER directive: the entrypoint starts as root only to chown the /app/data
+# volume mount (platform mounts arrive root-owned), then drops to `node` via gosu.
 
 EXPOSE 3000/tcp
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD ["node", "-e", "fetch(`http://127.0.0.1:${process.env.PORT ?? 3000}/api/health`).then((r) => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1));"]
 
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["node", "apps/server/dist/index.mjs"]
