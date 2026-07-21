@@ -41,7 +41,7 @@ const providerOptions: AIProviderOption[] = [
 		label: t`Anthropic Claude`,
 		keywords: ["anthropic", "claude", "ai"],
 		defaultBaseURL: AI_PROVIDER_DEFAULT_BASE_URLS.anthropic,
-		defaultModel: "claude-3-5-sonnet-latest",
+		defaultModel: "claude-sonnet-5",
 	},
 	{
 		value: "gemini",
