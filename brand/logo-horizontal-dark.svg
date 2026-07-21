@@ -1,0 +1,8 @@
+<svg width="240" height="56" viewBox="0 0 240 56" xmlns="http://www.w3.org/2000/svg">
+  <rect width="56" height="56" rx="14" fill="#14B8A6"/>
+  <path d="M20 15h13l7 7v20a2 2 0 0 1-2 2H20a2 2 0 0 1-2-2V17a2 2 0 0 1 2-2z" fill="#0F172A"/>
+  <path d="M33 15v6a1 1 0 0 0 1 1h6" fill="none" stroke="#14B8A6" stroke-width="1.4"/>
+  <circle cx="38" cy="38" r="9" fill="#FB923C"/>
+  <path d="M34.2 38.2l2.4 2.4 5-5.2" stroke="#0F172A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="72" y="38" font-family="'Segoe UI', 'Inter', system-ui, sans-serif" font-weight="700" font-size="28" fill="#F8FAFC">Resuma</text>
+</svg>
