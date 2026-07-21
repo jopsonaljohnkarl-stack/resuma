@@ -1,18 +1,35 @@
 import { t } from "@lingui/core/macro";
-import { ArrowRightIcon, TranslateIcon } from "@phosphor-icons/react";
+import { ArrowRightIcon, ArrowSquareOutIcon, CopyIcon, EnvelopeIcon, TranslateIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { m, useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef } from "react";
+import { toast } from "sonner";
 import { BrandIcon } from "@reactive-resume/ui/components/brand-icon";
 import { Button } from "@reactive-resume/ui/components/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@reactive-resume/ui/components/dropdown-menu";
 import { LocaleCombobox } from "@/features/locale/combobox";
 import { ThemeToggleButton } from "@/features/theme/toggle-button";
+
+const CONTACT_EMAIL = "jopsonaljohnkarl@gmail.com";
+const CONTACT_SUBJECT = "Project inquiry via Resuma";
+const MAILTO_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(CONTACT_SUBJECT)}`;
+const GMAIL_COMPOSE_HREF = `https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT_EMAIL}&su=${encodeURIComponent(CONTACT_SUBJECT)}`;
 
 export function Header() {
 	const y = useMotionValue(0);
 	const lastScroll = useRef(0);
 	const ticking = useRef(false);
 	const springY = useSpring(y, { stiffness: 300, damping: 40 });
+
+	const handleCopyEmail = async () => {
+		await navigator.clipboard.writeText(CONTACT_EMAIL);
+		toast.success(t`Email address copied to clipboard.`);
+	};
 
 	useEffect(() => {
 		if (typeof window === "undefined") return;
@@ -52,16 +69,45 @@ export function Header() {
 					<BrandIcon className="size-10" />
 				</Link>
 
-				<a
-					href="mailto:jopsonaljohnkarl@gmail.com?subject=Project%20inquiry%20via%20Resuma"
-					className="mx-auto hidden items-center gap-x-2 rounded-full border border-border bg-secondary/30 px-4 py-1.5 text-muted-foreground text-xs transition-colors hover:border-primary/40 hover:text-foreground md:flex"
-				>
-					<span>
-						Built by <span className="font-medium text-foreground">John Jopson</span> · Custom software, AI solutions
-						&amp; web development
-					</span>
-					<span className="font-medium text-primary">Get in touch →</span>
-				</a>
+				<DropdownMenu>
+					<DropdownMenuTrigger
+						render={
+							<button
+								type="button"
+								className="mx-auto hidden items-center gap-x-2 rounded-full border border-border bg-secondary/30 px-4 py-1.5 text-muted-foreground text-xs transition-colors hover:border-primary/40 hover:text-foreground md:flex"
+							>
+								<span>
+									Built by <span className="font-medium text-foreground">John Jopson</span> · Custom software, AI
+									solutions &amp; web development
+								</span>
+								<span className="font-medium text-primary">Get in touch →</span>
+							</button>
+						}
+					/>
+
+					<DropdownMenuContent align="center" side="bottom">
+						<DropdownMenuItem
+							render={
+								<a href={MAILTO_HREF}>
+									<EnvelopeIcon />
+									{t`Email app`}
+								</a>
+							}
+						/>
+						<DropdownMenuItem
+							render={
+								<a href={GMAIL_COMPOSE_HREF} target="_blank" rel="noreferrer">
+									<ArrowSquareOutIcon />
+									{t`Open in Gmail`}
+								</a>
+							}
+						/>
+						<DropdownMenuItem onClick={handleCopyEmail}>
+							<CopyIcon />
+							{t`Copy email address`}
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
 
 				<div className="ml-auto flex items-center gap-x-2">
 					<LocaleCombobox
