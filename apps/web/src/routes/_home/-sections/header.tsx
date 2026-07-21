@@ -28,7 +28,7 @@ export function Header() {
 
 	const handleCopyEmail = async () => {
 		await navigator.clipboard.writeText(CONTACT_EMAIL);
-		toast.success(t`Email address copied to clipboard.`);
+		toast.success("Email address copied to clipboard.");
 	};
 
 	useEffect(() => {
@@ -90,7 +90,7 @@ export function Header() {
 							render={
 								<a href={MAILTO_HREF}>
 									<EnvelopeIcon />
-									{t`Email app`}
+									Email app
 								</a>
 							}
 						/>
@@ -98,13 +98,13 @@ export function Header() {
 							render={
 								<a href={GMAIL_COMPOSE_HREF} target="_blank" rel="noreferrer">
 									<ArrowSquareOutIcon />
-									{t`Open in Gmail`}
+									Open in Gmail
 								</a>
 							}
 						/>
 						<DropdownMenuItem onClick={handleCopyEmail}>
 							<CopyIcon />
-							{t`Copy email address`}
+							Copy email address
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
