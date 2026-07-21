@@ -52,6 +52,17 @@ export function Header() {
 					<BrandIcon className="size-10" />
 				</Link>
 
+				<a
+					href="mailto:jopsonaljohnkarl@gmail.com?subject=Project%20inquiry%20via%20Resuma"
+					className="mx-auto hidden items-center gap-x-2 rounded-full border border-border bg-secondary/30 px-4 py-1.5 text-muted-foreground text-xs transition-colors hover:border-primary/40 hover:text-foreground md:flex"
+				>
+					<span>
+						Built by <span className="font-medium text-foreground">John Jopson</span> · Custom software, AI solutions
+						&amp; web development
+					</span>
+					<span className="font-medium text-primary">Get in touch →</span>
+				</a>
+
 				<div className="ml-auto flex items-center gap-x-2">
 					<LocaleCombobox
 						render={

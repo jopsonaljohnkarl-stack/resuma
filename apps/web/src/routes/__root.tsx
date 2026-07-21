@@ -48,7 +48,9 @@ const description =
 export const Route = createRootRouteWithContext<RouterContext>()({
 	component: RootComponent,
 	head: () => {
-		const appUrl = typeof window !== "undefined" ? window.location.origin : "https://resuma.app";
+		// Social crawlers (Facebook, Twitter) read the server-rendered tags without running JS,
+		// so the SSR fallback must be the real public URL of this deployment.
+		const appUrl = typeof window !== "undefined" ? window.location.origin : "https://resuma-production-d501.up.railway.app";
 
 		return {
 			links: [
