@@ -4,6 +4,7 @@ import { Faq } from "./-sections/faq";
 import { Features } from "./-sections/features";
 import { Footer } from "./-sections/footer";
 import { Hero } from "./-sections/hero";
+import { LaunchVideo } from "./-sections/launch-video";
 import { Prefooter } from "./-sections/prefooter";
 import { Templates } from "./-sections/templates";
 
@@ -27,6 +28,7 @@ function RouteComponent() {
 
 			<div className="container mx-auto px-4 sm:px-6 lg:px-12">
 				<div className="border-border border-x [&>section:first-child]:border-t-0 [&>section]:border-border [&>section]:border-t">
+					<LaunchVideo />
 					<Features />
 					<Templates />
 					<Faq />
